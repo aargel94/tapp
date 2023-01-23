@@ -77,8 +77,8 @@ const Login =(props)=>{
                         // onLogoutSuccess={onLogoutSuccess}
                         // redirect_uri={REDIRECT_URI}
                         onResolve={({ provider, data }: IResolveParams) => {
-                            if(data.access_token){
-                                
+                            if(data){
+                                console.log('entrooo')
                                 let b={
                                     name: (data.first_name +" "+ data.last_name),
                                     access_token: data.accessToken,
