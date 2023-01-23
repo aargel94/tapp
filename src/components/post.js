@@ -1,6 +1,7 @@
 import React ,{useEffect, useState } from 'react';
 import Call from '../config/Call'
 import moment from 'moment'
+import Spiner from '../components/base/spiner'
 
 const Post =(props)=>{
     const [datosUser, setDatosUser] = useState({})
@@ -13,6 +14,7 @@ const Post =(props)=>{
     const [showModalUser, setShowModalUser] = useState(false) //MODAL INFO USER
     const [detalleUser , setDetalleUser] = useState("")
     const [tagSelected, setTagSelected] = useState("todos")
+    const [showLoad, setShowLoad] = useState(false)
 
     useEffect(()=>{
         if( localStorage.getItem('authInfo')){
@@ -28,6 +30,7 @@ const Post =(props)=>{
 
     
     const listPost = async()=>{
+        setShowLoad(true)
         const res = await Call('GET', '/post', true, null, false)
         if(res.data.data.length>0){
             let t =[]
@@ -45,21 +48,27 @@ const Post =(props)=>{
         }
         setLPost(res.data.data)
         setAllPost(res.data.data)
+        setShowLoad(false)
     }
     const listComents = async (id)=>{
+        setShowLoad(true)
         const res = await Call('GET', `/post/${id}/comment`, true, null, false)
         console.log(res.data.data, 'get info user')
         setInfoModal(res.data.data)
         setShowModal(true)
+        setShowLoad(false)
+        
         
     }
     const getInfoUser= async (id)=>{
+        setShowLoad(true)
         const res = await Call('GET', `/user/${id}`, true, null, false)
-        console.log(res.data, 'getInfoUser')
         setDetalleUser(res.data)
         setShowModalUser(true)
+        setShowLoad(false)
     }
     const filtrarTag=(tag)=>{
+        setShowLoad(true)
         if(tag !== 'todos'){
             let nuevo=[]
             for(let i=0; i<allPost.length; i++){
@@ -70,8 +79,10 @@ const Post =(props)=>{
                 }
             }
         setLPost(nuevo)
+        setShowLoad(false)
         }else{
             setLPost(allPost)
+            setShowLoad(false)
         }
         
     }
@@ -176,20 +187,22 @@ const ModalUser=()=>{
     
 )
 }
-    // console.log(datosUser, 'datosUser')
     return (
         <div className='container'>
+            {showLoad && <Spiner />}
         {showModal &&  <Modal />}
         { showModalUser && <ModalUser/> }
             {show && <>
                 <div className='mt-3'><h1>Hola! {datosUser.name}</h1></div>
-                    <div className='d-flex f-wrap bg-white'>
-                        
-                    </div>
                     <div className='post-container'> 
                         {/* INIT TAGS */}
+                        <div className='fs-25 fw-900 w-100'>
+                            Categorias
+                            <hr />
+                        </div>
+                        {/* <hr/> */}
                         <div  className='list-tags'>
-                        <span onClick={()=>{setTagSelected('todos'); filtrarTag('todos')}} className={`tag ${tagSelected === 'todos' ? 'selected': ''}`}>Todos</span>
+                            <div onClick={()=>{setTagSelected('todos'); filtrarTag('todos')}} className={`tag ${tagSelected === 'todos' ? 'selected': ''}`}>Todos</div>
                             {
                                 lTags && lTags.map((lt, indexlt)=>(
                                     <div key={indexlt} className={`tag ${tagSelected === lt ? 'selected': ''}`} onClick={()=>{setTagSelected(lt); filtrarTag(lt)}}>

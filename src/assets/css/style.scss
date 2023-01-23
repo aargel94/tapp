@@ -96,7 +96,7 @@ header{
 }
 .list-tags{
     width: 100%;
-    display: flex;
+    display: -webkit-inline-box;
     // justify-content: space-around;
     margin: 1rem;
     overflow-x: auto;
@@ -144,18 +144,32 @@ header{
 }
 .login{
     background: white;
-    margin: 15%auto;
+    margin: 6% auto;
     position: relative;
     text-align: center;
-    width: 50%;
-    padding: 1rem;
+    width: fit-content;
+    padding: 8rem;
     border: 1px solid lightgrey;
     border-radius: 5px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     .login-btn{
-        padding: 8px 10px;
+        padding: 10px 60px;
+        border-radius: 5px;
+        margin:1rem auto;
+        width: fit-content;
+        text-align: center;
     }
 
+}
+.google{
+    background: #db4a39;
+    color: white;
+    margin:0.5rem;
+}
+.facebook{
+    background: #3b5998;
+    color: white;
+    margin:0.5rem;
 }
 .modal{
     z-index: 1000;
@@ -252,6 +266,7 @@ header{
     text-transform: capitalize;
     
     &.selected{
+        font-weight: 700;
         border-bottom: 2px solid #32b977e0;
     }
 }
@@ -265,3 +280,72 @@ header{
     margin-right: auto;
     right: 0rem;
 }
+// ******* spiner *******
+.lds-ring {
+    position: fixed;
+    z-index: 2000;
+    background: #808080c2;
+    width: 100%;
+    height: 100%;
+    margin:0;
+    top:0
+  }
+  .lds-ring div {
+    // box-sizing: border-box;
+    // display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    border: 8px solid #fff;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+    text-align: center;
+    margin-left: 45%;
+    margin-top: 15%;
+    vertical-align: middle;
+  }
+  .lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @media(max-width: 600px){
+    .lds-ring div {
+        // box-sizing: border-box;
+        // display: block;
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        border: 8px solid #fff;
+        border-radius: 50%;
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: #fff transparent transparent transparent;
+        text-align: center;
+        margin: 64% 40%;
+        vertical-align: middle;
+      }
+      .login {
+        background: white;
+        margin: 50% auto;
+        position: relative;
+        text-align: center;
+        width: 86%;
+        height: max-content;
+        border: 1px solid lightgrey;
+        border-radius: 5px;
+        padding: 2rem 0;
+    }
+  }

@@ -1,9 +1,11 @@
 import React ,{useState, useEffect } from 'react';
 import { LoginSocialGoogle, LoginSocialFacebook  } from 'reactjs-social-login'
+import Spinner from './base/spiner';
 
 const Login =(props)=>{
 
     const [show, setShow] = useState(false)
+    const [showLoad, setShowLoad] = useState(false)
     
     useEffect(()=>{
         if(localStorage.getItem('authInfo')){
@@ -14,32 +16,15 @@ const Login =(props)=>{
         }
     }, [])
 
-    // const onLoginStart = useCallback(() => {
-        
-    // }, [])
-    
-    // const onLogoutSuccess = useCallback(() => {
-    //     setProfile(null)
-    //     setProvider('')
-    //     alert('logout success')
-        
-    // }, [])
-    
-    const flogin =(e)=>{
-        
-        // console.log(e, 'flogin')
-        
-
-    }
     
     return(
         <div>
+            { showLoad && <Spinner /> }
             <div className='login'>
-                { show &&
                     <>
                     
                         <h2>Iniciar Sesión</h2>
-
+                        <hr />
                         <LoginSocialGoogle
                             client_id='329970426386-5jlo53igid074b7o8p76r6plqi3cn0cn.apps.googleusercontent.com'
                             // onLoginStart={onLoginStart}
@@ -48,43 +33,38 @@ const Login =(props)=>{
                             discoveryDocs="claims_supported"
                             access_type="offline"
                             onResolve={({ provider, data }: IResolveParams) => {
-                            
+                            setShowLoad(true)
                             if(data.email_verified){
                                 
                                 let b={
                                     name: data.name,
                                     access_token: data.access_token
                                 }
-                                flogin(b)
-                                // loginFunction(b)
+                                
                                 window.location.href='/'
                                 localStorage.setItem('authInfo',JSON.stringify(b))
                             }
                             }}
                             onReject={err => {
-                            console.log(err, 'err');
+                            
                             }}
                         >
-                            <span className='cursor-pointer login-btn'>Google</span>
+                            <div className='cursor-pointer login-btn google'> <i className="fab fa-google"></i> Google</div>
                         </LoginSocialGoogle>
-                        <hr />
+                        
                         <LoginSocialFacebook
-                        appId={'1272449583614205'}
-                        fieldsProfile={
-                            'id,first_name,last_name,middle_name,name,name_format,picture,short_name,email,gender'
-                        }
-                        // onLoginStart={onLoginStart}
-                        // onLogoutSuccess={onLogoutSuccess}
-                        // redirect_uri={REDIRECT_URI}
-                        onResolve={({ provider, data }: IResolveParams) => {
+                            appId={'1272449583614205'}
+                            fieldsProfile={
+                                'id,first_name,last_name,middle_name,name,name_format,picture,short_name,email,gender'
+                            }
+                            onResolve={({ provider, data }: IResolveParams) => {
+                            setShowLoad(true)
                             if(data){
-                                console.log('entrooo')
+                                
                                 let b={
                                     name: (data.first_name +" "+ data.last_name),
                                     access_token: data.accessToken,
                                 }
-                                flogin(b)
-                                // loginFunction(b)
                                 window.location.href='/'
                                 localStorage.setItem('authInfo',JSON.stringify(b))
                             }
@@ -93,12 +73,11 @@ const Login =(props)=>{
                             console.log(err, 'err');
                             }}
                         >
-                        Facebook
+                        <div className='cursor-pointer login-btn facebook'> <i class="fab fa-facebook-f"></i> Facebook</div>
                         </LoginSocialFacebook>
                         
                     
             </>
-        }
         </div>
       </div>
     )      
