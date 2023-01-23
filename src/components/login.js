@@ -9,7 +9,6 @@ const Login =(props)=>{
     
     useEffect(()=>{
         if(localStorage.getItem('authInfo')){
-            console.log('aqui, entro')
             window.location.href='/'
         }else{
             setShow(true)
@@ -21,8 +20,8 @@ const Login =(props)=>{
         <div>
             { showLoad && <Spinner /> }
             <div className='login'>
+                { show &&
                     <>
-                    
                         <h2>Iniciar Sesión</h2>
                         <hr />
                         <LoginSocialGoogle
@@ -33,7 +32,7 @@ const Login =(props)=>{
                             discoveryDocs="claims_supported"
                             access_type="offline"
                             onResolve={({ provider, data }: IResolveParams) => {
-                            setShowLoad(true)
+                                setShowLoad(true)
                             if(data.email_verified){
                                 
                                 let b={
@@ -46,7 +45,7 @@ const Login =(props)=>{
                             }
                             }}
                             onReject={err => {
-                            
+                            console.log(err, 'err');
                             }}
                         >
                             <div className='cursor-pointer login-btn google'> <i className="fab fa-google"></i> Google</div>
@@ -57,14 +56,14 @@ const Login =(props)=>{
                             fieldsProfile={
                                 'id,first_name,last_name,middle_name,name,name_format,picture,short_name,email,gender'
                             }
-                            onResolve={({ provider, data }: IResolveParams) => {
+                        onResolve={({ provider, data }: IResolveParams) => {
                             setShowLoad(true)
                             if(data){
-                                
                                 let b={
                                     name: (data.first_name +" "+ data.last_name),
                                     access_token: data.accessToken,
                                 }
+                               
                                 window.location.href='/'
                                 localStorage.setItem('authInfo',JSON.stringify(b))
                             }
@@ -78,6 +77,7 @@ const Login =(props)=>{
                         
                     
             </>
+        }
         </div>
       </div>
     )      
