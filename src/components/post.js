@@ -31,7 +31,7 @@ const Post =(props)=>{
         const res = await Call('GET', '/post', true, null, false)
         if(res.data.data.length>0){
             let t =[]
-            let c=[]
+            
             for(let i =0; i<res.data.data.length; i++){
                 for(let j=0; j<res.data.data[i].tags.length; j++){
                    let b= t.filter(element => element === res.data.data[i].tags[j])

@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { decode } from '../config/crypto.js';
-
 
 const header = (method, url, isAuth, data, toSendAFile) => 
 {
@@ -10,11 +8,10 @@ const header = (method, url, isAuth, data, toSendAFile) =>
   data && (options.data = data)
   options.headers = {'Content-Type': toSendAFile ? 'multipart/form-data' : 'application/json' }
   axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL
-  let baseurl = process.env.REACT_APP_BACKEND_URL
+  
   if (localStorage.getItem('authInfo')) {
     
     // const data = localStorage.getItem('authInfo')? decode(localStorage.getItem('authInfo')):null
-    const data2=JSON.parse(localStorage.getItem('authInfo'))
     
     // const token = (data2? data2.access_token: null);
     

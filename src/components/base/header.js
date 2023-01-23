@@ -15,7 +15,6 @@ const Header =(props)=>{
         
     }, [])// eslint-disable-line react-hooks/exhaustive-deps
     const logout=()=>{
-        console.log('salir')
         localStorage.removeItem('authInfo');
         // remove all
         localStorage.clear();
