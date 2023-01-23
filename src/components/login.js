@@ -45,7 +45,6 @@ const Login =(props)=>{
                             }
                             }}
                             onReject={err => {
-                            console.log(err, 'err');
                             }}
                         >
                             <div className='cursor-pointer login-btn google'> <i className="fab fa-google"></i> Google</div>
@@ -69,7 +68,7 @@ const Login =(props)=>{
                             }
                             }}
                             onReject={err => {
-                            console.log(err, 'err');
+                            
                             }}
                         >
                         <div className='cursor-pointer login-btn facebook'> <i class="fab fa-facebook-f"></i> Facebook</div>

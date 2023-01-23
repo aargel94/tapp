@@ -32,6 +32,7 @@ const Post =(props)=>{
     const listPost = async()=>{
         setShowLoad(true)
         const res = await Call('GET', '/post', true, null, false)
+        
         if(res.data.data.length>0){
             let t =[]
             
@@ -53,7 +54,6 @@ const Post =(props)=>{
     const listComents = async (id)=>{
         setShowLoad(true)
         const res = await Call('GET', `/post/${id}/comment`, true, null, false)
-        console.log(res.data.data, 'get info user')
         setInfoModal(res.data.data)
         setShowModal(true)
         setShowLoad(false)
