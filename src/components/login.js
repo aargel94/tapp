@@ -50,7 +50,7 @@ const Login =(props)=>{
                             onResolve={({ provider, data }: IResolveParams) => {
                             
                             if(data.email_verified){
-                                console.log('entro')
+                                
                                 let b={
                                     name: data.name,
                                     access_token: data.access_token
@@ -77,13 +77,21 @@ const Login =(props)=>{
                         // onLogoutSuccess={onLogoutSuccess}
                         // redirect_uri={REDIRECT_URI}
                         onResolve={({ provider, data }: IResolveParams) => {
-                            // setProvider(provider);
-                            // setProfile(data);
-                            console.log(data, 'data facebook')
-                        }}
-                        onReject={err => {
-                            console.log(err);
-                        }}
+                            if(data.access_token){
+                                
+                                let b={
+                                    name: (data.first_name +" "+ data.last_name),
+                                    access_token: data.accessToken,
+                                }
+                                flogin(b)
+                                // loginFunction(b)
+                                window.location.href='/'
+                                localStorage.setItem('authInfo',JSON.stringify(b))
+                            }
+                            }}
+                            onReject={err => {
+                            console.log(err, 'err');
+                            }}
                         >
                         Facebook
                         </LoginSocialFacebook>
