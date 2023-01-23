@@ -88,6 +88,7 @@ const Post =(props)=>{
     }
     const Modal=()=>{
             return(
+                <>
                 <div className='modal'>
                     <div className='header-modal'>
                         <div className='fw-500'>   
@@ -134,12 +135,14 @@ const Post =(props)=>{
                         }
                     </div>
                 </div>
-            
+                <div className='backdrop'></div>
+                </>
         )
 }
 
 const ModalUser=()=>{
     return(
+        <>
         <div className='modal'>
             <div className='header-modal'>
                 <div className='fw-500 text-capitalize'>   
@@ -184,9 +187,10 @@ const ModalUser=()=>{
                 </div>
             </div>
         </div>
-    
-)
-}
+        <div className='backdrop'></div>
+        </>
+    )
+    }
     return (
         <div className='container'>
             {showLoad && <Spiner />}
